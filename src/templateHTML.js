@@ -1,38 +1,52 @@
 // Function to create Team Cards, Bootstrap framework
 function generateTeamCards(teamInformation) {
-    let teamCards = [];
-    
-    for(let i = 0; i < teamInformation.length; i++){
-        let details;
-        switch(teamInformation[i].getRole()){
-            case 'Engineer': details = `Github: <a href="https://www.github.com/${teamInformation[i].getGithub()}" target="_blank" rel="noopener noreferrer">@${teamArray[i].getGithub()}</a>`;
-            break;
-    
-            case 'Intern': details = `Education: ${teamInformation[i].getUniversity()}`;
-            break;
-    
-            case 'Employee': details = `Office Number: ${teamInformation[i].office}`;
-            break;
-    
-            default: console.log(" Information is invalid. ");
-        }
-        teamCards.push(`
+  let teamCards = [];
+
+  for (let i = 0; i < teamInformation.length; i++) {
+    let details;
+    switch (teamInformation[i].getRole()) {
+      case "Engineer":
+        details = `Github: <a href="https://www.github.com/${teamInformation[
+          i
+        ].getGithub()}" target="_blank" rel="noopener noreferrer">@${teamArray[
+          i
+        ].getGithub()}</a>`;
+        break;
+
+      case "Intern":
+        details = `Education: ${teamInformation[i].getUniversity()}`;
+        break;
+
+      case "Employee":
+        details = `Office Number: ${teamInformation[i].office}`;
+        break;
+
+      default:
+        console.log(" Information is invalid. ");
+    }
+    teamCards.push(`
         <div class="card shadow mx-2 my-3" style="width: 18rem;"> 
-        <img src="./assets/images/${teamInformation[i].getRole()}.svg" alt="${teamInformation[i].getRole()} svg graphic">
+        <img src="./assets/images/${teamInformation[
+          i
+        ].getRole()}.svg" alt="${teamInformation[i].getRole()} svg graphic">
             <ul class="list-group">
-                <li class="list-group-item h2 font-weight-bold text-center text-white bg-dark">${teamInformation[i].getName()}</li>
+                <li class="list-group-item h2 font-weight-bold text-center text-white bg-dark">${teamInformation[
+                  i
+                ].getName()}</li>
                 <li class="list-group-item">ID: ${teamInformation[i].id}</li>
-                <li class="list-group-item">Email: <a href = "mailto: ${teamInformation[i].email}">${teamInformation[i].email}</a> </li>
+                <li class="list-group-item">Email: <a href = "mailto: ${
+                  teamInformation[i].email
+                }">${teamInformation[i].email}</a> </li>
                 <li class="list-group-item">${details}</li>
             </ul>
-        </div>`)
-    }
-    return teamCards.join('');
+        </div>`);
+  }
+  return teamCards.join("");
 }
 
-// Generate overall HTML and insert Generated Team Cards 
+// Generate overall HTML and insert Generated Team Cards
 function generateHTMLCode(teamInformation) {
-    return `
+  return `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -64,7 +78,7 @@ function generateHTMLCode(teamInformation) {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
         </body>
     </html>
-    `
+    `;
 }
 
 // Export generateHTMLCode function

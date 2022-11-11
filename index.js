@@ -11,7 +11,7 @@ const generateTeamCards = require("./src/templateHTML");
 const company = [];
 
 //Function to add manager to company
-addManager((input) => {
+const addManager = (input) => {
   const teamManager = new Manager(
     input.managerOffice,
     input.managerEmail,
@@ -19,29 +19,29 @@ addManager((input) => {
     input.managerId
   );
   company.push(addManager);
-});
+};
 
 //Create array of Questions for manager information
 const managerInformation = [
   {
     type: "input",
     message: "Enter your name.",
-    name: managerName,
+    name: "managerName",
   },
   {
     type: "input",
     message: "Enter your email.",
-    name: managerEmail,
+    name: "managerEmail",
   },
   {
     type: "input",
     message: "Enter manager office number.",
-    name: managerOffice,
+    name: "managerOffice",
   },
   {
     type: "input",
     message: "Enter employee ID.",
-    name: managerId,
+    name: "managerId",
   },
 ];
 
@@ -61,22 +61,22 @@ const internInformation = [
   {
     type: "input",
     message: "Enter your name.",
-    name: internName,
+    name: "internName",
   },
   {
     type: "input",
     message: "Enter your email.",
-    name: internEmail,
+    name: "internEmail",
   },
   {
     type: "input",
     message: "Enter place of education.",
-    name: internUniversity,
+    name: "internUniversity",
   },
   {
     type: "input",
     message: "Enter employee ID.",
-    name: internId,
+    name: "internId",
   },
 ];
 
@@ -85,27 +85,27 @@ const engineerInformation = [
   {
     type: "input",
     message: "Enter your name.",
-    name: engineerName,
+    name: "engineerName",
   },
   {
     type: "input",
     message: "Enter your email.",
-    name: engineerEmail,
+    name: "engineerEmail",
   },
   {
     type: "input",
     message: "Enter place of education.",
-    name: engineerGitHub,
+    name: "engineerGitHub",
   },
   {
     type: "input",
     message: "Enter employee ID.",
-    name: engineerId,
+    name: "engineerId",
   },
 ];
 
 //Create function to pass Intern questions and store info for team card
-createNewIntern(() => {
+const createNewIntern = () => {
   inquirer.prompt(internInformation).then((response) => {
     const teamIntern = new Intern(
       response.internName,
@@ -116,9 +116,9 @@ createNewIntern(() => {
     myTeam.push(teamIntern);
     buildCompany();
   });
-});
+};
 //Create function to pass Engineer questions and store info for team card
-createNewEngineer(() => {
+const createNewEngineer = () => {
   inquirer.prompt(engineerInformation).then((response) => {
     const teamEngineer = new Engineer(
       response.internName,
@@ -129,4 +129,23 @@ createNewEngineer(() => {
     myTeam.push(teamEngineer);
     buildCompany();
   });
-});
+};
+
+const addToCompany = () => {
+  inquirer.prompt(teamBuildQuestions).then((answers) => {
+    switch (answers.selection) {
+      case "Intern":
+        createNewIntern();
+      case "Engineer":
+        createNewEngineer();
+      case "Nothing else to add":
+        createTeamCard("./dist/index.html", generateTeamCards(company));
+        break;
+    }
+  });
+};
+
+// Write File to Dist folder
+function createTeamCard(fileName, data) {
+  fs.writeFile(fileName, data);
+}
