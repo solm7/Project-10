@@ -18,7 +18,7 @@ const addManager = (input) => {
     input.managerName,
     input.managerId
   );
-  company.push(addManager);
+  company.push(teamManager);
 };
 
 //Create array of Questions for manager information
@@ -51,7 +51,7 @@ const teamBuildQuestions = [
   {
     type: "list",
     message: "Do you want to add any employees?",
-    name: "Available choices",
+    name: "selection",
     choices: ["Intern", "Engineer", "I don't want to hire anyone"],
   },
 ];
@@ -94,7 +94,7 @@ const engineerInformation = [
   },
   {
     type: "input",
-    message: "Enter place of education.",
+    message: "Enter your Github username.",
     name: "engineerGitHub",
   },
   {
@@ -110,24 +110,24 @@ const createNewIntern = () => {
     const teamIntern = new Intern(
       response.internName,
       response.internID,
-      response.internGithub,
+      response.internUniversity,
       response.internEmail
     );
-    myTeam.push(teamIntern);
-    buildCompany();
+    company.push(teamIntern);
+    addToCompany();
   });
 };
 //Create function to pass Engineer questions and store info for team card
 const createNewEngineer = () => {
   inquirer.prompt(engineerInformation).then((response) => {
     const teamEngineer = new Engineer(
-      response.internName,
-      response.internID,
-      response.internGithub,
-      response.internEmail
+      response.engineerName,
+      response.engineerID,
+      response.engineerGithub,
+      response.engineerEmail
     );
-    myTeam.push(teamEngineer);
-    buildCompany();
+    company.push(teamEngineer);
+    addToCompany();
   });
 };
 
@@ -149,3 +149,12 @@ const addToCompany = () => {
 function createTeamCard(fileName, data) {
   fs.writeFile(fileName, data);
 }
+
+function start() {
+  inquirer.prompt(managerInformation).then((data) => {
+    addManager(data);
+    addToCompany();
+  });
+}
+
+start();
