@@ -13,10 +13,10 @@ const company = [];
 //Function to add manager to company
 addManager((input) => {
   const teamManager = new Manager(
-    input.managerName,
-    input.managerId,
+    input.managerOffice,
     input.managerEmail,
-    input.managerOffice
+    input.managerName,
+    input.managerId
   );
   company.push(addManager);
 });
@@ -27,5 +27,15 @@ const managerInformation = [
     type: "input",
     message: "Enter your name.",
     name: managerName,
+  },
+  {
+    type: "input",
+    message: "Enter your emaail.",
+    name: managerEmail,
+  },
+  {
+    type: "input",
+    message: "Enter employee ID.",
+    name: managerId,
   },
 ];
