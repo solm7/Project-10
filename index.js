@@ -45,7 +45,7 @@ const managerInformation = [
   },
 ];
 
-//Ask Manager if they want to add employee, or if they are done
+//Ask Manager if they want to add employee, or if they are done pass into inquirer later
 
 const teamBuildQuestions = [
   {
@@ -79,3 +79,54 @@ const internInformation = [
     name: internId,
   },
 ];
+
+//Create Array for Engineer questions to call later in inquirer
+const engineerInformation = [
+  {
+    type: "input",
+    message: "Enter your name.",
+    name: engineerName,
+  },
+  {
+    type: "input",
+    message: "Enter your email.",
+    name: engineerEmail,
+  },
+  {
+    type: "input",
+    message: "Enter place of education.",
+    name: engineerGitHub,
+  },
+  {
+    type: "input",
+    message: "Enter employee ID.",
+    name: engineerId,
+  },
+];
+
+//Create function to pass Intern questions and store info for team card
+createNewIntern(() => {
+  inquirer.prompt(internInformation).then((response) => {
+    const teamIntern = new Intern(
+      response.internName,
+      response.internID,
+      response.internGithub,
+      response.internEmail
+    );
+    myTeam.push(teamIntern);
+    buildCompany();
+  });
+});
+//Create function to pass Engineer questions and store info for team card
+createNewEngineer(() => {
+  inquirer.prompt(engineerInformation).then((response) => {
+    const teamEngineer = new Engineer(
+      response.internName,
+      response.internID,
+      response.internGithub,
+      response.internEmail
+    );
+    myTeam.push(teamEngineer);
+    buildCompany();
+  });
+});
